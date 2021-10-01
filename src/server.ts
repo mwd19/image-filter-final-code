@@ -2,6 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import  fetch  from 'node-fetch';
 
 (async () => {
 
@@ -42,13 +43,14 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
       
       // check image_url is valid
       if (!image_url) {
-        return res.status(400).send({ message: 'Image URL is required or malformed' });
+        return res.status(422).send({ message: 'Image URL is required or malformed' });
       }
-
-      // const valid = await fetch(image_url);
-      // if (!valid) {
-      //   return res.status(402).send({ message: 'Image not found at the specified url' });
-      // }
+      
+      // check if we can get the image from the url without errors
+      const valid = await fetch(image_url);
+      if (valid.status != 200) {
+        return res.status(valid.status).send({ message: valid.statusText });
+      }
     
       const filteredpath: string = await filterImageFromURL(image_url);
 
