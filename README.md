@@ -16,7 +16,17 @@ You'll need to create a new node server. Open a new terminal within the project 
 
 1. Initialize a new project: `npm i`
 2. run the development server with `npm run dev`
-[[https://github.com/mwd19/image-filter-final-code/tree/master/screenshoots/npm-run-dev.png|alt=octocat]]
+
+``` bash
+➜  image-filter-final-code git:(dev) npm run dev  
+
+> udacity-c2-image-filter@1.0.0 dev
+> ts-node-dev ./src/server.ts
+
+Using ts-node version 8.3.0, typescript version 3.5.3
+server running http://localhost:8082
+press CTRL+C to stop server
+```
 
 ### Create a new endpoint in the server.ts file
 
