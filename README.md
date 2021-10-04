@@ -16,6 +16,7 @@ You'll need to create a new node server. Open a new terminal within the project 
 
 1. Initialize a new project: `npm i`
 2. run the development server with `npm run dev`
+[[https://github.com/mwd19/image-filter-final-code/tree/master/screenshoots/npm-run-dev.png|alt=octocat]]
 
 ### Create a new endpoint in the server.ts file
 
