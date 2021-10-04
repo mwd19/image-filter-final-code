@@ -11,7 +11,7 @@ A basic Ionic client web application which consumes the RestAPI Backend. [Covere
 ## Endpoint URL for the running elastic beanstalk deployment (EB_URL) 
 http://image-filter-final-code-dev.us-east-1.elasticbeanstalk.com/
 
-### Valid GET requests
+### Valid GET request
 http://image-filter-final-code-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg
 
 ## Tasks
