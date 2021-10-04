@@ -1,8 +1,7 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import {filterImageFromURL, deleteLocalFiles} from './util/util';
-import  fetch  from 'node-fetch';
+import { filterImageFromURL, deleteLocalFiles } from './util/util';
 
 (async () => {
 
@@ -11,7 +10,7 @@ import  fetch  from 'node-fetch';
 
   // Set the network port
   const port = process.env.PORT || 8082;
-  
+
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
@@ -32,42 +31,42 @@ import  fetch  from 'node-fetch';
   /**************************************************************************** */
 
   //! END @TODO1
-  app.get("/filteredimage", 
-    async ( req: Request, res: Response ) => {
-      
-      console.log(req.query);
+  app.get("/filteredimage",
+    async (req: Request, res: Response) => {
 
-      let  image_url  = req.query.image_url;
-      
-      console.log(image_url);
-      
+      let image_url = req.query.image_url;
+
       // check image_url is valid
       if (!image_url) {
-        return res.status(422).send({ message: 'Image URL is required or malformed' });
+        return res.status(400).send({ message: 'Image URL is required or malformed' });
       }
-      
-      // check if we can get the image from the url without errors
-      const valid = await fetch(image_url);
-      if (valid.status != 200) {
-        return res.status(valid.status).send({ message: valid.statusText });
-      }
-    
-      const filteredpath: string = await filterImageFromURL(image_url);
 
-      res.sendFile(filteredpath);
+      try {
+        // filter the image
+        const filteredpath: string = await filterImageFromURL(image_url);
+        
+        // Send the resulting file in the response
+        res.sendFile(filteredpath, {}, (error: any) => {
+          if (error) { return res.status(423).send("Not able to send the image"); }
+          // Deletes the file on the server on finish
+          deleteLocalFiles([filteredpath])
+        })
+      } catch (error) {
+        res.status(422).send("Not able to filter the image, verify your image ...");
+      }
     }
   );
-  
+
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async ( req: Request, res: Response ) => {
+  app.get("/", async (req: Request, res: Response) => {
     res.send("try GET /filteredimage?image_url={{}}")
-  } );
-  
+  });
+
 
   // Start the Server
-  app.listen( port, () => {
-      console.log( `server running http://localhost:${ port }` );
-      console.log( `press CTRL+C to stop server` );
-  } );
+  app.listen(port, () => {
+    console.log(`server running http://localhost:${port}`);
+    console.log(`press CTRL+C to stop server`);
+  });
 })();
