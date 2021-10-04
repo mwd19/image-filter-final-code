@@ -39,8 +39,129 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 ```
 
 ### Deploying your system
-
 Follow the process described in the course to `eb init` a new application and `eb create` a new environment to deploy your image-filter service! Don't forget you can use `eb deploy` to push changes.
+
+#### `1. npm run build` 
+``` bash
+➜  image-filter-final-code git:(master) npm run build
+
+> udacity-c2-image-filter@1.0.0 build
+> npm run clean && tsc && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd ..
+
+
+> udacity-c2-image-filter@1.0.0 clean
+> rimraf www/ || true
+
+  adding: util/ (stored 0%)
+  adding: util/util.js (deflated 62%)
+  adding: util/util.js.map (deflated 57%)
+  adding: server.js (deflated 62%)
+  adding: server.js.map (deflated 62%)
+  adding: package.json (deflated 54%)
+  adding: tmp/ (stored 0%)
+```
+
+#### `2. eb init` 
+``` bash
+➜  image-filter-final-code git:(master) ✗ eb init                                       
+
+Select a default region
+1) us-east-1 : US East (N. Virginia)
+2) us-west-1 : US West (N. California)
+3) us-west-2 : US West (Oregon)
+4) eu-west-1 : EU (Ireland)
+5) eu-central-1 : EU (Frankfurt)
+6) ap-south-1 : Asia Pacific (Mumbai)
+7) ap-southeast-1 : Asia Pacific (Singapore)
+8) ap-southeast-2 : Asia Pacific (Sydney)
+9) ap-northeast-1 : Asia Pacific (Tokyo)
+10) ap-northeast-2 : Asia Pacific (Seoul)
+11) sa-east-1 : South America (Sao Paulo)
+12) cn-north-1 : China (Beijing)
+13) cn-northwest-1 : China (Ningxia)
+14) us-east-2 : US East (Ohio)
+15) ca-central-1 : Canada (Central)
+16) eu-west-2 : EU (London)
+17) eu-west-3 : EU (Paris)
+18) eu-north-1 : EU (Stockholm)
+19) eu-south-1 : EU (Milano)
+20) ap-east-1 : Asia Pacific (Hong Kong)
+21) me-south-1 : Middle East (Bahrain)
+22) af-south-1 : Africa (Cape Town)
+(default is 3): 1
+
+
+Enter Application Name
+(default is "image-filter-final-code"): 
+Application image-filter-final-code has been created.
+
+It appears you are using Node.js. Is this correct?
+(Y/n): 
+Select a platform branch.
+1) Node.js 14 running on 64bit Amazon Linux 2
+2) Node.js 12 running on 64bit Amazon Linux 2
+3) Node.js 10 running on 64bit Amazon Linux 2 (Deprecated)
+4) Node.js running on 64bit Amazon Linux (Deprecated)
+(default is 1): 2
+
+Do you wish to continue with CodeCommit? (Y/n): n
+Do you want to set up SSH for your instances?
+(Y/n): 
+
+Select a keypair.
+1) aws-eb
+2) vockey
+3) [ Create new KeyPair ]
+(default is 2): 1
+```
+
+#### `3. eb create` 
+``` bash
+➜  image-filter-final-code git:(master) ✗ eb create
+Enter Environment Name
+(default is image-filter-final-code-dev): 
+Enter DNS CNAME prefix
+(default is image-filter-final-code-dev): 
+
+Select a load balancer type
+1) classic
+2) application
+3) network
+(default is 2): 
+
+
+Would you like to enable Spot Fleet requests for this environment? (y/N): 
+Uploading image-filter-final-code/app-ec23-211004_191637.zip to S3. This may take a while.
+Upload Complete.
+Environment details for: image-filter-final-code-dev
+  Application name: image-filter-final-code
+  Region: us-east-1
+  Deployed Version: app-ec23-211004_191637
+  Environment ID: e-zfmqmsnepx
+  Platform: arn:aws:elasticbeanstalk:us-east-1::platform/Node.js 12 running on 64bit Amazon Linux 2/5.4.6
+  Tier: WebServer-Standard-1.0
+  CNAME: image-filter-final-code-dev.us-east-1.elasticbeanstalk.com
+  Updated: 2021-10-04 18:16:44.838000+00:00
+Printing Status:
+2021-10-04 18:16:43    INFO    createEnvironment is starting.
+2021-10-04 18:16:45    INFO    Using elasticbeanstalk-us-east-1-927852435336 as Amazon S3 storage bucket for environment data.
+2021-10-04 18:17:07    INFO    Created target group named: arn:aws:elasticloadbalancing:us-east-1:927852435336:targetgroup/awseb-AWSEB-JW0GOZ27ENRF/9a13673d9aed9a5b
+2021-10-04 18:17:07    INFO    Created security group named: sg-072decac261b9c04b
+2021-10-04 18:17:23    INFO    Created security group named: awseb-e-zfmqmsnepx-stack-AWSEBSecurityGroup-1EC7YO2Q82BHL
+2021-10-04 18:17:23    INFO    Created Auto Scaling launch configuration named: awseb-e-zfmqmsnepx-stack-AWSEBAutoScalingLaunchConfiguration-1D77KIJGCU0AC
+2021-10-04 18:18:25    INFO    Created Auto Scaling group named: awseb-e-zfmqmsnepx-stack-AWSEBAutoScalingGroup-1L7214MPYYNHB
+2021-10-04 18:18:25    INFO    Waiting for EC2 instances to launch. This may take a few minutes.
+2021-10-04 18:18:25    INFO    Created Auto Scaling group policy named: arn:aws:autoscaling:us-east-1:927852435336:scalingPolicy:30e630bf-c1c3-442d-b483-1b96dcd244e9:autoScalingGroupName/awseb-e-zfmqmsnepx-stack-AWSEBAutoScalingGroup-1L7214MPYYNHB:policyName/awseb-e-zfmqmsnepx-stack-AWSEBAutoScalingScaleDownPolicy-1MN6YAP5QIB49
+2021-10-04 18:18:25    INFO    Created Auto Scaling group policy named: arn:aws:autoscaling:us-east-1:927852435336:scalingPolicy:75254470-f7b5-43cd-9d92-b4fd545907a8:autoScalingGroupName/awseb-e-zfmqmsnepx-stack-AWSEBAutoScalingGroup-1L7214MPYYNHB:policyName/awseb-e-zfmqmsnepx-stack-AWSEBAutoScalingScaleUpPolicy-LXO58J0TFE24
+2021-10-04 18:18:40    INFO    Created CloudWatch alarm named: awseb-e-zfmqmsnepx-stack-AWSEBCloudwatchAlarmLow-1EJCOZ61D49RO
+2021-10-04 18:18:40    INFO    Created CloudWatch alarm named: awseb-e-zfmqmsnepx-stack-AWSEBCloudwatchAlarmHigh-1SYISUEFAIH5M
+2021-10-04 18:18:44    INFO    Created load balancer named: arn:aws:elasticloadbalancing:us-east-1:927852435336:loadbalancer/app/awseb-AWSEB-FQOFD5H8V5UJ/d41f1009d87eaa09
+2021-10-04 18:18:59    INFO    Created Load Balancer listener named: arn:aws:elasticloadbalancing:us-east-1:927852435336:listener/app/awseb-AWSEB-FQOFD5H8V5UJ/d41f1009d87eaa09/1a6b91a798174a49
+2021-10-04 18:19:03    INFO    Instance deployment: You didn't specify a Node.js version in the 'package.json' file in your source bundle. The deployment didn't install a specific Node.js version.
+2021-10-04 18:19:20    INFO    Instance deployment completed successfully.
+2021-10-04 18:19:54    INFO    Application available at image-filter-final-code-dev.us-east-1.elasticbeanstalk.com.
+2021-10-04 18:19:54    INFO    Successfully launched environment: image-filter-final-code-dev
+```
 
 ## Stand Out (Optional)
 
