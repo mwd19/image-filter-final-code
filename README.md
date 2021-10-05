@@ -183,6 +183,7 @@ I have give it a try .. but I have a little problem with the uploaded image it g
 #### Here is the github repo :
 https://github.com/mwd19/udacity-c2-restapi
 
+#### Endpoint URL for the running elastic beanstalk
 http://udagram-walid-dev-dev.us-east-1.elasticbeanstalk.com
 
 
@@ -194,7 +195,7 @@ Prevent requests without valid authentication headers.
 #### The postman collection
 https://github.com/mwd19/udacity-c2-restapi/blob/master/udacity-c2-restapi-dup.postman_collection.json
 
-But I got this error :
+But I got this error in the response body:
 <html>
 
 <head>
