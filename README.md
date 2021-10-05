@@ -178,10 +178,38 @@ Printing Status:
 
 If you're feeling up to it, refactor the course RESTapi to make a request to your newly provisioned image server.
 
+I have give it a try .. but I have a little problem with the uploaded image it gives me an error when I download it, I think that I have not been able to upload it in the correct format.
+
+#### Here is the github repo :
+https://github.com/mwd19/udacity-c2-restapi
+
+http://udagram-walid-dev-dev.us-east-1.elasticbeanstalk.com
+
+
 ### Authentication
 
 Prevent requests without valid authentication headers.
 > !!NOTE if you choose to submit this, make sure to add the token to the postman collection and export the postman collection file to your submission so we can review!
+
+#### The postman collection
+https://github.com/mwd19/udacity-c2-restapi/blob/master/udacity-c2-restapi-dup.postman_collection.json
+
+But I got this error :
+<html>
+
+<head>
+	<title>502 Bad Gateway</title>
+</head>
+
+<body>
+	<center>
+		<h1>502 Bad Gateway</h1>
+	</center>
+	<hr>
+	<center>nginx/1.20.0</center>
+</body>
+
+</html>
 
 ### Custom Domain Name
 
